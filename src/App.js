@@ -1,24 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import UsersList from "./components/UsersList";
+import axios from 'axios';
+import React, {createContext, useEffect, useState} from "react";
+import UserDetails from "./components/UserDetails";
+
+export const AppContext = createContext({});
 
 function App() {
+    const [users, setUsers] = useState([])
+    const [activeUser, setActiveUser] = useState(null)
+    useEffect(() => {
+    axios.get(`https://raw.githubusercontent.com/netology-code/ra16-homeworks/master/hooks-context/use-effect/data/users.json`)
+        .then(res => {
+          setUsers(res.data);
+        })
+  }, [])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <AppContext.Provider value={{setActiveUser}}>
+          <div style={{display: "flex", justifyContent: "space-around", alignItems: "center"}}>
+              <UsersList users={users}/>
+              {activeUser && <UserDetails info={activeUser}/>}
+          </div>
+      </AppContext.Provider>
+
   );
 }
 
