@@ -17,7 +17,7 @@ function App() {
 
   return (
       <AppContext.Provider value={{setActiveUser}}>
-          <div style={{display: "flex", justifyContent: "space-around", alignItems: "center"}}>
+          <div className="flex justify-around">
               <UsersList users={users}/>
               {activeUser && <UserDetails info={activeUser}/>}
           </div>

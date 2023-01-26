@@ -3,13 +3,13 @@ import UsersListItem from "./UsersListItem";
 
 const UsersList = ({users}) => {
     return (
-        <ul>
+        <div className="flex flex-col self-start border border-black">
             {
                 users.map((user) => {
                     return <UsersListItem data={user} key={user.id}/>
                 })
             }
-        </ul>
+        </div>
     );
 };
 
